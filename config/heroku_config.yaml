@@ -1,0 +1,8 @@
+common:
+  port: $PORT
+postgres:
+  database_url: $DATABASE_URL
+  require_ssl: true
+telegram:
+  token: $TELEGRAM_BOT_TOKEN
+  my_chat_id: $TELEGRAM_CHAT
