@@ -27,7 +27,6 @@ def setup_accessors(application: web.Application) -> None:
 
 
 def setup_middlewares(application: web.Application) -> None:
-    # application.middlewares.append(request_logging_middleware)
     application.middlewares.append(error_middleware)
     application.middlewares.append(validation_middleware)
 
@@ -49,14 +48,17 @@ def setup_logging(_: web.Application) -> None:
     logging.basicConfig(level=logging.INFO)
 
 
+def setup_app(application: web.Application) -> None:
+    setup_config(application)
+    setup_routes(application)
+    setup_accessors(application)
+    setup_external_libraries(application)
+    setup_middlewares(application)
+    setup_logging(application)
+
+
 app = web.Application()
 
-
 if __name__ == "__main__":
-    setup_config(app)
-    setup_routes(app)
-    setup_accessors(app)
-    setup_external_libraries(app)
-    setup_middlewares(app)
-    setup_logging(app)
+    setup_app(app)
     web.run_app(app, port=config["common"]["port"])
